@@ -1,6 +1,7 @@
 const CSGO_API_URL = 'https://raw.githubusercontent.com/ByMykel/CSGO-API/main/public/api/en/skins.json';
+import { supabaseAdmin } from "../config/postgres";
 
-export async function fetchItems() {
+export async function fetchItemsFromApi() {
   try {
     const response = await fetch(CSGO_API_URL);
 
@@ -16,4 +17,10 @@ export async function fetchItems() {
     console.error('Error fetching items:', error);
     throw error;
   }
+}
+
+export async function fetchItemsFromDb() {
+  return supabaseAdmin
+    .from("items")
+    .select("*");
 }

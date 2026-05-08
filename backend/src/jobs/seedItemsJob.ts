@@ -1,4 +1,4 @@
-import { fetchItems } from "../services/itemService";
+import { fetchItemsFromApi } from "../services/itemService";
 import { supabaseAdmin } from "../config/postgres";
 
 type Rarity = {
@@ -41,7 +41,7 @@ function chunk<T>(arr: T[], size = 500): T[][] {
 }
 
 export default async function seedItemsJob() {
-  const response: Record<string, CSItem> = await fetchItems();
+  const response: Record<string, CSItem> = await fetchItemsFromApi();
   const items: CSItem[] = Object.values(response);
 
   const formatted: DBItem[] = items.map((item) => ({
